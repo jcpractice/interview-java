@@ -1,12 +1,32 @@
-version: "3.7"
+version: "3.9"
 services:
+  interview-java:
+    container_name: interview-java
+    image: handofgod/interview-java
+    ports:
+      - "8080:8080"
+    networks:
+      - interview-java
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: jdbc:postgresql://postgres:5432/postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+
   postgres:
     container_name: postgres
     image: postgres:12.2
     ports:
       - "5432:5432"
+    networks:
+      - interview-java
     environment:
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
 
+networks:
+  interview-java:
+    name: interview_network

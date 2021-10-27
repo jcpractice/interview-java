@@ -1,5 +1,6 @@
 package com.signicat.interview.utils;
 
+import com.signicat.interview.entity.Subject;
 import com.signicat.interview.entity.UserGroup;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;

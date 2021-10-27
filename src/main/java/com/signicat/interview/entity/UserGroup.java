@@ -1,21 +1,30 @@
 package com.signicat.interview.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
+
+@Generated
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "user_group")
-
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class UserGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     @Column(nullable = false)
     private String name;
 
@@ -24,6 +33,11 @@ public class UserGroup {
     private Set<Subject> users;
 
     public UserGroup(String name) {
+        this.name = name;
+    }
+
+    public UserGroup(Long id, String name) {
+        this.id= id;
         this.name = name;
     }
 
@@ -45,10 +59,7 @@ public class UserGroup {
             return false;
         UserGroup other = (UserGroup) obj;
         if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+            return other.id == null;
+        } else return id.equals(other.id);
     }
 }

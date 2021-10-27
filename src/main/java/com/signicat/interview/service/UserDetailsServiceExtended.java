@@ -25,21 +25,16 @@ public class UserDetailsServiceExtended implements UserDetailsService {
 
     @Override
     public UserDetailsExtended loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<Subject> returnedUserOptional = userRepository.findByUserName(userName);
+        log.trace("Entry loadUserByUsername "+userName);
 
-        log.info("inside loadUserByUsername ::");
+        Optional<Subject> returnedUserOptional = userRepository.findByUserName(userName);
         if(returnedUserOptional.isPresent()) {
             Subject returnedUser = returnedUserOptional.get();
-            Set<UserGroups> userGroups = returnedUser.getGroups().stream().map(userGroup -> {
-                return new UserGroups(userGroup.getId(), userGroup.getName());
-            }).collect(Collectors.toUnmodifiableSet());
+            Set<UserGroups> userGroups = returnedUser.getGroups().stream().map(userGroup -> new UserGroups(userGroup.getId(), userGroup.getName())).collect(Collectors.toUnmodifiableSet());
             return new UserDetailsExtended(returnedUser.getId(), returnedUser.getUserName(), returnedUser.getPassword(),userGroups, new ArrayList<>());
         }else {
-            log.error("User not present-------");
-            /*
-                Internal server error is set to avoid user enumeration threat
-             */
-            throw new OperationalException("Something went wrong.Please reach out to Support.", HttpStatus.INTERNAL_SERVER_ERROR);
+            log.error("User not present::");
+            throw new OperationalException("Invalid UserName or Password", HttpStatus.UNAUTHORIZED);
         }
     }
 }

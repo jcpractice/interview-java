@@ -1,17 +1,23 @@
 package com.signicat.interview.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
 
-@Data
+@Generated
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "subject")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,10 +41,9 @@ public class Subject {
             inverseJoinColumns = @JoinColumn(name = "user_group_id"))
     private Set<UserGroup> groups;
 
-    public Subject(@NonNull String userName, @NonNull String email, int status) {
+    public Subject(@NonNull String userName, @NonNull String email) {
         this.userName = userName;
         this.email = email;
-        this.status = status;
     }
 
     @Override
@@ -59,16 +64,14 @@ public class Subject {
             return false;
         Subject other = (Subject) obj;
         if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+            return other.id == null;
+        } else return id.equals(other.id);
     }
     @PrePersist
     public void prePersist() {
         if(this.profileType == null){
             this.profileType = "R";
+            this.status=1;
         }
     }
 }

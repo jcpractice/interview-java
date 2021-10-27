@@ -3,18 +3,19 @@ package com.signicat.interview.domain;
 import lombok.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 
 @Data
+@Generated
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserGroupDTO {
-    //TODO need to check validation
     private Long id;
-    @NotNull
+    @NotBlank
     private String name;
 
     public UserGroupDTO(String name) {

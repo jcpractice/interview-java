@@ -5,3 +5,7 @@ ALTER TABLE subject
     ADD profile_type varchar(2) DEFAULT('R');
 ALTER TABLE subject
     ADD status int DEFAULT(1);
+
+-- Default user group
+INSERT INTO user_group (id, name) VALUES (1, 'Default Group');
+
