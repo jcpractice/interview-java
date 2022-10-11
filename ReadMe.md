@@ -7,7 +7,7 @@
 * Code coverage : 
   ![img.png](img.png)
 
-* Application run Manual :
+* Application run Manually :
   * To run the app 
     * Either download the soruce code for [github](https://github.com/jcpractice/interview-java.git) or from hard drive
     *Please navigate to the project root directory and execute
