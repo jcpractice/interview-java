@@ -28,7 +28,7 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-core:2.17.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
-    implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.3'
     implementation 'org.modelmapper:modelmapper:2.1.1'
     implementation("com.nimbusds:nimbus-jose-jwt:9.25.5")
     implementation 'com.github.java-json-tools:json-patch:1.13'
